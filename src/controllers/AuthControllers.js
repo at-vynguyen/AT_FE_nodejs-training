@@ -14,17 +14,7 @@ Photographer.getUsername(username, (err, callback) => {
         delete req.headers.password;
         next();
       }
-      else {
-        res.status(401).json({
-          error: 'auth failt',
-        })
-      }
     });
-  }
-  else {
-    res.status(401).json({
-      error: 'auth failt',
-    })
   }
 });
 }
