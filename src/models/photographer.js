@@ -18,15 +18,10 @@ const PhotographerSchema = new Schema({
     type: String,
     trim: true,
     required: true
-  },
-  products: [
-    {
-      _id:{
-        type: String,
-        ref: 'Picture'
-      }
-    }
-  ]
+  }
+},
+{
+  versionKey: false
 })
 
 PhotographerSchema.pre('create', function(next){
@@ -34,23 +29,26 @@ PhotographerSchema.pre('create', function(next){
   next();
 });
 
-module.exports.comparePassword = (password, hash, callback) => {
-  bcrypt.compare(password, hash, callback);
-}
-
-
 var Photographer = module.exports = mongoose.model('Photographer', PhotographerSchema);
 
 module.exports.index = function(callback) {
   Photographer.find(callback);
 }
 
-module.exports.show = function(photographerId,callback) {
-  Photographer.findById(photographerId, callback);
+module.exports.hashPassword = (password, callback) => {
+  bcrypt.hash(password, 10, callback);
 }
 
-module.exports.create = function(photographerId, callback) {
-  Photographer.create(photographerId, callback);
+module.exports.comparePassword = (password, hash, callback) => {
+  bcrypt.compare(password, hash, callback);
+}
+
+module.exports.show = function(photographerId,callback) {
+  Photographer.find({_id:photographerId}, callback);
+}
+
+module.exports.create = function(photographer, callback) {
+  photographer.save(callback);
 }
 
 module.exports.update = function(photographerId, callback) {

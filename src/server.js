@@ -17,7 +17,7 @@ if (!module.parent) {
   app.listen(3000, onStarted);
   app.on('error', onError);
   app.on('listening', onListening);
-} 
+}
 
 function onStarted() {
   console.info(`Server started on port 3000`);

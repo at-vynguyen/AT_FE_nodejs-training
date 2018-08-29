@@ -29,10 +29,6 @@ module.exports.show = function(pictureId,callback) {
   Picture.findById(pictureId, callback);
 }
 
-module.exports.create = function(pictureId, callback) {
-  Picture.create(pictureId, callback);
-}
-
 module.exports.update = function(pictureId, body, callback) {
   Picture.findByIdAndUpdate(pictureId, body, callback);
 }
