@@ -6,6 +6,6 @@ router.get('/', photographer.index);
 router.get('/:id', photographer.show);
 router.post('/', photographer.create);
 router.put('/:id', photographer.update);
-routes.delete('/:id', photographesController.remove);
+router.delete('/:id', photographer.remove);
 
 module.exports = router;
