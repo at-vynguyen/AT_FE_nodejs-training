@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
+const Joi = require('joi');
 
 const PhotographerSchema = new Schema({
   name: {
@@ -18,6 +19,9 @@ const PhotographerSchema = new Schema({
     type: String,
     trim: true,
     required: true
+  },
+  level: {
+    type: String
   }
 },
 {
@@ -51,8 +55,8 @@ module.exports.create = function(photographer, callback) {
   photographer.save(callback);
 }
 
-module.exports.update = function(photographerId, callback) {
-  Photographer.findByIdAndUpdate(photographerId, callback);
+module.exports.update = function(photographerId, body, callback) {
+  Photographer.findByIdAndUpdate(photographerId, body, callback);
 }
 
 module.exports.remove = function(photographerId, callback) {

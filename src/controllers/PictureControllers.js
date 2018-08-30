@@ -8,7 +8,8 @@ exports.index = function(req, res, next) {
 }
 
 exports.show = function(req, res, next) {
-  Picture.show(function(err, callback) {
+  const userName = req.params.id;
+  Picture.show(userName, function(err, callback) {
     if(err) throw err;
     res.status(200).send(callback);
   });
@@ -22,7 +23,7 @@ exports.remove = function(req, res, next) {
 }
 
 exports.create = function(req, res, next) {
-  var picArr = req.body;
+  const picArr = req.body;
   const photographerid = req.photographerid;
   var picObj = [];
   
@@ -41,7 +42,7 @@ exports.create = function(req, res, next) {
 }
 
 exports.update = function(req, res, next) {
-  const id = req.params.pictureid;
+  const id = req.params.id;
   const body = req.body;
   Picture.update(id, body, (err, callback) => {
     if (err) throw err;
@@ -50,9 +51,9 @@ exports.update = function(req, res, next) {
 }
 
 exports.delete = (req, res, next) => {
-  const id = req.params.pictureId;
+  const id = req.params.id;
   Picture.remove(id, (err, callback) => {
     if (err) throw err;
-    res.status(200).json(callback);
+    res.status(200).send(callback);
   });
 }

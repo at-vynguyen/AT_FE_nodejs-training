@@ -1,4 +1,5 @@
 const Photographer = require('../models/photographer');
+const convert = require('../lib/constructer');
 
 exports.index = function(req, res, next) {
   Photographer.index(function(err, callback) {
@@ -8,7 +9,8 @@ exports.index = function(req, res, next) {
 }
 
 exports.show = function(req, res, next) {
-  Photographer.show(function(err, callback) {
+  const photoId = req.params.id;
+  Photographer.show(photoId,function(err, callback) {
     if(err) throw err;
     res.status(200).send(callback);
   });
@@ -22,8 +24,10 @@ exports.remove = function(req, res, next) {
 }
 
 exports.create = function(req, res, next) {
-  const password = req.body.password;
-  const userName = req.body.userName;
+  const reqConvert = convert.convert(req.body);
+  const password = reqConvert.password;
+  const userName = reqConvert.username;
+
   Photographer.getUsername(userName, (err, callback) => {
     if (err) throw err;
     if (callback.length) {
@@ -31,17 +35,18 @@ exports.create = function(req, res, next) {
         error: 'have another this username'
       });
     }
-  Photographer.pre(password, (err, hash) => {
+  Photographer.hashPassword(password, (err, hash) => {
     if (err) {
       return res.status(500).send({
         error: err
       });
     } else {
       const photographer = new Photographer({
-        name: req.body.name,
-        age: req.body.age,
+        name: reqConvert.name,
+        age: reqConvert.age,
         password: hash,
-        userName: userName
+        username: reqConvert.username,
+        level: reqConvert.level
       });
   Photographer.create(photographer, function(err, callback) {
     if(err) throw err;
@@ -53,10 +58,10 @@ exports.create = function(req, res, next) {
 }
 
 exports.update = (req, res, next) => {
-  const id = req.params.photographerId;
+  const id = req.params.id;
   const body = req.body;
 
-  Photographer.updatePhotographer(id, body, (err, callback) => {
+  Photographer.update(id, body, (err, callback) => {
     if (err) throw err;
     res.status(200).send(callback);
   });

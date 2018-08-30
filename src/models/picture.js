@@ -34,7 +34,7 @@ module.exports.update = function(pictureId, body, callback) {
 }
 
 module.exports.remove = function(pictureId, callback) {
-  Picture.findByIdAndRemove(pictureId, callback);
+  Picture.deleteOne({_id:pictureId}, callback);
 }
 
 module.exports.insertmany = function(obj, callback) {
