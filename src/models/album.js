@@ -10,19 +10,26 @@ var AlbumSchema = new Schema({
     type: String,
   },
   photographerid: {
-    type: String,
-    ref: 'photographer'
+    type: mongoose.Schema.Types.ObjectId,
   },
 },
 {
   versionKey: false
-}
-)
+})
 
 var Album = module.exports = mongoose.model('Album', AlbumSchema);
 
-module.exports.index = function(callback) {
-  Album.find(callback).populate('Photographer');
+module.exports.index = (callback) => {
+  Album.aggregate([
+    {
+      $lookup: {
+        from: "photographers",
+        localField: "photographerid",
+        foreignField: "_id",
+        as: "photographer_docs"
+      }
+    }
+  ]).then(callback);
 }
 
 module.exports.show = function(AlbumId,callback) {
