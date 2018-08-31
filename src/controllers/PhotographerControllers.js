@@ -1,5 +1,5 @@
 const Photographer = require('../models/photographer');
-const convert = require('../lib/constructer');
+const convert = require('../lib/constructor');
 
 exports.index = function(req, res, next) {
   Photographer.index(function(err, callback) {
@@ -27,7 +27,6 @@ exports.create = function(req, res, next) {
   const reqConvert = convert.convert(req.body);
   const password = reqConvert.password;
   const userName = reqConvert.username;
-
   Photographer.getUsername(userName, (err, callback) => {
     if (err) throw err;
     if (callback.length) {

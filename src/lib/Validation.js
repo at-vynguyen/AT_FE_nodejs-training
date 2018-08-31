@@ -1,25 +1,25 @@
 const Joi = require('Joi');
 
-const passwordValidation = Joi.extend({
-  base: Joi.string(),
-  name: 'string',
-  language: {
-    errorMsg: 'Password must not have username'
-  },
-  rules: [{
-    name: 'customPassword',
-    validate(params, value, state, options) {
-      if(state.parent.name) {
-        if(value.includes(state.parent.name)) {
-          return this.createError('string.errorMsg', {}, state, options);
-        } else {
-          return value;
-        }
-      }
-      return this.createError('string.errorMsg', {}, state, options);
-    }
-  }],
-});
+// const passwordValidation = Joi.extend({
+//   base: Joi.string(),
+//   name: 'string',
+//   language: {
+//     errorMsg: 'Password must not have username'
+//   },
+//   rules: [{
+//     name: 'customPassword',
+//     validate(params, value, state, options) {
+//       if(state.parent.name) {
+//         if(value.includes(state.parent.name)) {
+//           return this.createError('string.errorMsg', {}, state, options);
+//         } else {
+//           return value;
+//         }
+//       }
+//       return this.createError('string.errorMsg', {}, state, options);
+//     }
+//   }],
+// });
 
 const ageValidation = Joi.extend({
   base: Joi.string(),
@@ -47,11 +47,11 @@ module.exports = {
           }
         }
       }),
-      passwords: passwordValidation.string().customPassword().options({
-        language: {
-          string: { base: 'password must be a string' }
-        }
-      }),
+      // passwords: passwordValidation.string().customPassword().options({
+      //   language: {
+      //     string: { base: 'password must be a string' }
+      //   }
+      // }),
     }
   }
 };
