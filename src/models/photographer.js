@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
-const Joi = require('joi');
 
 const PhotographerSchema = new Schema({
   name: {

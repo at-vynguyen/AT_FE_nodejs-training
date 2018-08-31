@@ -8,7 +8,6 @@ const APIError = require('./APIError');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-
 app.use('/', routers);
 
 app.use((err, req, res, next) => {

@@ -1,7 +1,7 @@
-const Picture = require('../models/pictures');
+const Album = require('../models/album');
 
 exports.index = function(req, res, next) {
-  Picture.index(function(err, callback) {
+  Album.index(function(err, callback) {
     if(err) throw err;
     res.status(200).send(callback);
   });
@@ -9,14 +9,14 @@ exports.index = function(req, res, next) {
 
 exports.show = function(req, res, next) {
   const userName = req.params.id;
-  Picture.show(userName, function(err, callback) {
+  Album.show(userName, function(err, callback) {
     if(err) throw err;
     res.status(200).send(callback);
   });
 }
 
 exports.remove = function(req, res, next) {
-  Picture.remove(function(err, callback) {
+  Album.remove(function(err, callback) {
     if(err) throw err;
     res.status(200).send(callback);
   });
@@ -28,14 +28,14 @@ exports.create = function(req, res, next) {
   var picObj = [];
   
   picObj = picArr.map(item => {
-    return new Picture({
+    return new Album({
       "name" : item.name,
       "description": item.description,
       "photographerid": photographerid,
     });
   });
 
-  Picture.insertMany(picObj, function(err, callback) {
+  Album.insertMany(picObj, function(err, callback) {
     if(err) throw err;
     res.status(200).send(callback);
   });
@@ -44,7 +44,7 @@ exports.create = function(req, res, next) {
 exports.update = function(req, res, next) {
   const id = req.params.id;
   const body = req.body;
-  Picture.update(id, body, (err, callback) => {
+  Album.update(id, body, (err, callback) => {
     if (err) throw err;
     res.status(200).send(callback);
   });
@@ -52,7 +52,7 @@ exports.update = function(req, res, next) {
 
 exports.delete = (req, res, next) => {
   const id = req.params.id;
-  Picture.remove(id, (err, callback) => {
+  Album.remove(id, (err, callback) => {
     if (err) throw err;
     res.status(200).send(callback);
   });

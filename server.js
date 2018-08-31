@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const app = require('./src/lib/Express');
-// const dbConfig = require('../config/database.config');
 
 require('dotenv').config();
 mongoose.Promise = global.Promise;
@@ -13,15 +12,6 @@ mongoose.connect(`${process.env.DB_HOST}${process.env.DB_NAME}`)
   console.log('Could not connect to the database. Exiting now...');
   process.exit();
 });
-
-
-// mongoose.connect(dbConfig.url).then(() => {
-//   console.log("Sucsess connected database");
-// }).catch(err =>{
-//   console.log(err);
-//   console.log('Could not connect to the database. Exiting now...');
-//   process.exit();
-// });
 
 if (!module.parent) {
   app.listen(3000, onStarted);
