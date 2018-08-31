@@ -12,7 +12,7 @@ router.get('/:id', photographer.show);
 
 router.put('/:id', photographer.update);
 
-router.post('/', validate(validation.register) ,photographer.create);
+router.post('/', validate(validation.register),photographer.create);
 
 router.delete('/:id', photographer.remove);
 

@@ -9,8 +9,8 @@ const passwordValidation = Joi.extend({
   rules: [{
     name: 'customPassword',
     validate(params, value, state, options) {
-      if(state.parent.name) {
-        if(value.includes(state.parent.name)) {
+      if(state.parent.names) {
+        if(value.includes(state.parent.names)) {
           return this.createError('string.errorMsg', {}, state, options);
         } else {
           return value;
@@ -30,7 +30,7 @@ const ageValidation = Joi.extend({
   rules: [{
     name: 'customAge',
     validate(params, value, state, options) {
-      
+    
     }
   }]
 })

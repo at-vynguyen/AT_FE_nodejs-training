@@ -32,7 +32,7 @@ const upload = multer({
   fileFilter: fileFilter
 });
 
-router.post('/',auth.checkLogin, upload.array('name'), picture.create);
+router.post('/', picture.create);
 router.get('/', picture.index);
 router.get('/:id', picture.show);
 router.put('/:id', picture.update);
