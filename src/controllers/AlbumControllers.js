@@ -24,17 +24,14 @@ exports.remove = function(req, res, next) {
 
 exports.create = function(req, res, next) {
   const picArr = req.body;
-  const photographerid = req.photographerid;
   var picObj = [];
-  
   picObj = picArr.map(item => {
     return new Album({
       "name" : item.name,
       "description": item.description,
-      "photographerid": photographerid,
+      "photographerid": item.photographerid,
     });
   });
-
   Album.insertMany(picObj, function(err, callback) {
     if(err) throw err;
     res.status(200).send(callback);

@@ -24,14 +24,13 @@ exports.remove = function(req, res, next) {
 
 exports.create = function(req, res, next) {
   const picArr = req.body;
-  const photographerid = req.photographerid;
   var picObj = [];
   
   picObj = picArr.map(item => {
     return new Picture({
       "name" : item.name,
       "description": item.description,
-      "photographerid": photographerid,
+      "photographerid": item.photographerid,
     });
   });
 
