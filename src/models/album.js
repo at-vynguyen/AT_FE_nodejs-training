@@ -17,19 +17,47 @@ var AlbumSchema = new Schema({
   versionKey: false
 })
 
-var Album = module.exports = mongoose.model('Album', AlbumSchema);
+const Album = module.exports = mongoose.model('Album', AlbumSchema);
 
 module.exports.index = (callback) => {
   Album.aggregate([
-    {
-      $lookup: {
+    { 
+      $lookup: { 
         from: "photographers",
         localField: "photographerid",
         foreignField: "_id",
         as: "photographer_docs"
       }
-    }
-  ]).then(callback);
+    }, 
+    {
+      $unwind: {
+        path: "$photographer_docs",
+        preserveNullAndEmptyArrays: true
+      } 
+    }, 
+    {
+      $lookup: {
+        from: "pictures",
+        localField: "_id",
+        foreignField: "albumid",
+        as: "picture_docs"
+      }
+    }, 
+    // {
+    //   $project : {
+    //     name: 1,
+    //     description: 1,
+    //     photographer_docs: {
+    //       name: 1,
+    //       age:  1,
+    //       username: 1
+    //     },
+    //     picture_docs: {
+    //       name: 1
+    //     }
+    //   }
+    // }
+  ], callback);
 }
 
 module.exports.show = function(AlbumId,callback) {
