@@ -31,6 +31,7 @@ exports.create = function(req, res, next) {
       "name" : item.name,
       "description": item.description,
       "photographerid": item.photographerid,
+      "albumid": item.albumid
     });
   });
 

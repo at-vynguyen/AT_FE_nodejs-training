@@ -10,12 +10,11 @@ var PictureSchema = new Schema({
     type: String,
   },
   albumid: {
-    type: String,
-    ref: 'album'
+    type: mongoose.Schema.Types.ObjectId,
   },
   photographerid: {
-    type: String,
-    ref: 'photographer'
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'photographers'
   },
 },
 {
@@ -26,7 +25,7 @@ var PictureSchema = new Schema({
 var Picture = module.exports = mongoose.model('Picture', PictureSchema);
 
 module.exports.index = function(callback) {
-  Picture.find(callback).populate('Album');
+  Picture.find(callback).populate('Albums');
 }
 
 module.exports.show = function(PictureId,callback) {

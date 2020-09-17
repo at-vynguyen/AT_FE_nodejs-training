@@ -30,7 +30,7 @@ exports.create = function(req, res, next) {
   Photographer.getUsername(userName, (err, callback) => {
     if (err) throw err;
     if (callback.length) {
-      return res.status(409 ).send({
+      return res.status(409).send({
         error: 'have another this username'
       });
     }

@@ -1,10 +1,17 @@
 const Album = require('../models/album');
 
-exports.index = function(req, res, next) {
-  Album.index(function(err, callback) {
-    if(err) throw err;
-    res.status(200).send(callback);
-  });
+// exports.index = (req, res, next) => {
+//   Album.index((err, callback) => {
+//     if(err) throw err;
+//     res.status(200).send(callback);
+//   });
+// }
+
+exports.index = (req, res, next) => {
+  Album.index((err, callback) => {
+    if (err) throw err;
+    res.status(200).json(callback);
+  })
 }
 
 exports.show = function(req, res, next) {
